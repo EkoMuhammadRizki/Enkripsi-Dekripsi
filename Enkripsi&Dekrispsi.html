@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Caesar Cipher - Enkripsi & Dekripsi Elegan dengan Video Background</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="bg-overlay"></div>
+
+  <aside id="project-info" role="banner" aria-label="Informasi proyek dan pengguna">
+    <h2>Enkripsi & Dekripsi teks Caesar Cipher</h2>
+    <p>Nama: Eko Muhammad Rizki</p>
+    <p>Kelas: 2B PSTI</p>
+  </aside>
+
+  <main class="container" role="main" aria-label="Alat enkripsi dan dekripsi Caesar cipher dengan video latar belakang elegan dan modern">
+    <h1 tabindex="0">Caesar Cipher - Enkripsi & Dekripsi</h1>
+
+    <div>
+      <label for="inputText">Masukkan pesan Anda</label>
+      <textarea id="inputText" placeholder="Ketik teks Anda di sini..." spellcheck="false" autofocus rows="5" aria-describedby="inputHelp"></textarea>
+      <small id="inputHelp" class="helper-text">
+        Mendukung huruf besar, huruf kecil, dan spasi. Karakter selain alfabet tidak diubah.
+      </small>
+    </div>
+
+    <div>
+      <label for="shiftNumber">Nomor pergeseran (0-25)</label>
+      <input type="number" id="shiftNumber" min="0" max="25" step="1" value="3" aria-describedby="shiftHelp" />
+      <small id="shiftHelp" class="helper-text">
+        Jumlah posisi huruf digeser dalam alfabet. Contoh: 3 → "A" menjadi "D"
+      </small>
+    </div>
+
+    <div class="buttons">
+      <button id="encryptBtn" aria-label="Enkripsi pesan dengan Caesar cipher">Enkripsi</button>
+      <button id="decryptBtn" aria-label="Dekripsi pesan dengan Caesar cipher">Dekripsi</button>
+    </div>
+
+    <div>
+      <label for="output" class="output-label">Hasil</label>
+      <textarea id="output" readonly placeholder="Hasil enkripsi atau dekripsi akan muncul di sini..." rows="6" spellcheck="false" aria-live="polite"></textarea>
+    </div>
+  </main>
+
+  <script>
+    // Fungsi Caesar cipher untuk menggeser karakter
+    function shiftChar(char, shift) {
+      const isUpper = char >= 'A' && char <= 'Z';
+      const isLower = char >= 'a' && char <= 'z';
+      if (!isUpper && !isLower) return char;
+
+      const base = isUpper ? 65 : 97;
+      const charCode = char.charCodeAt(0);
+      const shiftedCode = ((charCode - base + shift + 26) % 26) + base;
+      return String.fromCharCode(shiftedCode);
+    }
+
+    function caesarCipher(text, shift) {
+      return [...text].map(c => shiftChar(c, shift)).join('');
+    }
+
+    // DOM elements
+    const inputText = document.getElementById('inputText');
+    const shiftInput = document.getElementById('shiftNumber');
+    const outputArea = document.getElementById('output');
+    const encryptBtn = document.getElementById('encryptBtn');
+    const decryptBtn = document.getElementById('decryptBtn');
+
+    function validateShift(shiftVal) {
+      const n = Number(shiftVal);
+      if (Number.isNaN(n) || n < 0 || n > 25) {
+        alert('Nomor pergeseran harus antara 0 dan 25');
+        return null;
+      }
+      return n;
+    }
+
+    encryptBtn.addEventListener('click', () => {
+      const shift = validateShift(shiftInput.value);
+      if (shift === null) return;
+      const text = inputText.value;
+      if (!text) {
+        outputArea.value = '';
+        return;
+      }
+      const encrypted = caesarCipher(text, shift);
+      outputArea.value = encrypted;
+      outputArea.focus();
+      outputArea.select();
+    });
+
+    decryptBtn.addEventListener('click', () => {
+      const shift = validateShift(shiftInput.value);
+      if (shift === null) return;
+      const text = inputText.value;
+      if (!text) {
+        outputArea.value = '';
+        return;
+      }
+      const decrypted = caesarCipher(text, -shift);
+      outputArea.value = decrypted;
+      outputArea.focus();
+      outputArea.select();
+    });
+  </script>
+</body>
+</html>
+

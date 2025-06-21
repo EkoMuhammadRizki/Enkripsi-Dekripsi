@@ -1,7 +1,7 @@
 # Enkripsi-Dekripsi
 
 #Deskripsi Proyek
-Proyek ini merupakan aplikasi web sederhana yang digunakan untuk melakukan enkripsi dan dekripsi pesan menggunakan algoritma Caesar Cipher. Aplikasi ini dibangun menggunakan HTML dan CSS, serta menampilkan antarmuka yang modern dan ramah pengguna.
+ini merupakan aplikasi web sederhana yang digunakan untuk melakukan enkripsi dan dekripsi pesan menggunakan algoritma Caesar Cipher. Aplikasi ini dibangun menggunakan HTML dan CSS, serta menampilkan antarmuka yang modern dan ramah pengguna.
 
 #Fitur Aplikasi
 - Input pesan teks dari pengguna
